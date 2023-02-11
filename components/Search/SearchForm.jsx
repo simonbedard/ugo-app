@@ -21,6 +21,7 @@ export default function SearchForm() {
     const [isLoading, setLoading] = useState(false);
     const [isFocused, setFocused] = useState(false);
     const [text, setText] = useState(searchTerm);
+    
     const formRef = useRef(null)
 
     const [recentSearch, setRecentSearchRef] = useState([]);
@@ -43,21 +44,28 @@ export default function SearchForm() {
      */
     function formSubmited(event) {
         event.preventDefault();
-        search();
+        const formData = new FormData(event.target)
+      
+        search(formData);
     }
 
     function recentSearchClick(item){
       setText(item)
     }
 
-    function search(){
+    function search(formData){
       if(text === "")return;
-
       const page = 1;
-  
+
       setLoading(true)
 
-      fetch(`http://localhost/api/search/terms/${text}/${page}`)
+      let filters = {};
+
+      if(formData.get('color') != ''){
+        filters.color = formData.get('color')
+      }
+
+      fetch(`http://localhost/api/search/terms/${text}/${page}?${new URLSearchParams(filters)}`)
         .then((res) => res.json())
         .then((data) => {
           dispatch(swapPayload(data));
@@ -104,7 +112,7 @@ export default function SearchForm() {
                 onBlur={event => setFocused(false)}
                 onChange={event => setText(event.target.value)}
                 />
-              <SearchColors/>
+              <SearchColors />
             </form>
             {isLoading ? <LinearProgress thickness={1} />: ''}
 
