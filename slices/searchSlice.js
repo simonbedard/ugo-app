@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import FakeData from "../test/images.json"
 
 const initialState = {
-  term: "Nature",
+  term: "Interior design",
   payload: FakeData,
 
 }

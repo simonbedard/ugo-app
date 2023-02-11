@@ -50,6 +50,7 @@ export default function SearchForm() {
     }
 
     function recentSearchClick(item){
+      console.log(item)
       setText(item)
     }
 
@@ -90,7 +91,11 @@ export default function SearchForm() {
     }
 
     
-  
+    function delayBlur(){
+      setTimeout(()=>{
+        setFocused(false);
+      }, 200)
+    }
 
     return (
         <>
@@ -109,7 +114,7 @@ export default function SearchForm() {
                 startDecorator={<SearchIcon />}
                 endDecorator={<Button loading={isLoading} type="submit">Search</Button>}
                 onFocus={event => (recentSearch.length > 0 ? setFocused(true) : null)}
-                onBlur={event => setFocused(false)}
+                onBlur={event => delayBlur()}
                 onChange={event => setText(event.target.value)}
                 />
               <SearchColors />

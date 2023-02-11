@@ -2,6 +2,7 @@
 
 import Container from '@mui/material/Container';
 import { useSelector } from 'react-redux';
+import { useState, useEffect } from 'react';
 
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
@@ -18,6 +19,47 @@ export default function UgoImageGrid() {
     const payload = useSelector((state) => state.search.payload);
     const term = useSelector((state) => state.search.term)
     
+    const [checkedState, setCheckedState] = useState([]);
+
+    function handleOnChange(e, item){
+        if(e.target.checked){
+            setCheckedState([...checkedState, item]);
+        }else{
+            const filteredArray = checkedState.filter(function(e) { return e !== item });
+            setCheckedState(filteredArray);
+        }
+    }
+
+    useEffect(() => {
+        console.log(checkedState);
+    }, [checkedState])
+
+
+    /**
+     * Logic to filter components visibility
+     * @returns React component
+     */
+    const ImageComponent = ({key, item}) => {
+
+        if(checkedState.includes(item.provider) || checkedState.length == 0){
+            return <ImageListItem key={key} className="ugo-image">
+                <Link href={`/file/${item.provider.toLowerCase()}/${item.id}`}>
+                    <img 
+                    style={{width: "100%"}}
+                    id={item.id} 
+                    src={item.src} 
+                    />
+                    <div className='content'>
+                        <small>{item.provider} - {item.id}</small>
+                    </div>
+                </Link>
+            </ImageListItem>
+        }else{
+            return
+        }
+
+
+    }
     return (
         <>  
         
@@ -45,31 +87,20 @@ export default function UgoImageGrid() {
                                 'Deposite',
                             ].map((item, index) => (
                                 <ListItem key={item}>
-                                <Checkbox
-                                    overlay
-                                    disableIcon
-                                    variant="soft"
-                                    label={item}
-                                />
+                                    <Checkbox
+                                        overlay
+                                        disableIcon
+                                        variant="soft"
+                                        label={item}
+                                        onChange={(e) => handleOnChange(e, item)}
+                                    />
                                 </ListItem>
                             ))}
                             </List>
                         </div>
-                    <ImageList variant="masonry" cols={4} gap={20}>
+                    <ImageList variant="masonry" cols={3} gap={20}>
                         {payload.assets.map((item, index) => ( 
-                        <ImageListItem key={index} className="ugo-image">
-                            <Link href={`/file/${item.provider.toLowerCase()}/${item.id}`}>
-                                <img 
-                                style={{width: "100%"}}
-                                id={item.id} 
-                                src={item.src} 
-                                />
-                                <div className='content'>
-                                    <small>{item.provider} - {item.id}</small>
-                                </div>
-                            </Link>
-
-                        </ImageListItem>
+                            <ImageComponent key={index} item={item} />
                         ))}
                     </ImageList>
 
