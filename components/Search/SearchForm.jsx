@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { setTerm, swapPayload, setLoading } from '../../slices/searchSlice'
 
 import Button from '@mui/joy/Button';
-
+import { titleCase } from '../../utils/utils';
 import Input from '@mui/joy/Input';
 import SearchIcon from '@mui/icons-material/Search';
 import LinearProgress from '@mui/joy/LinearProgress';
@@ -54,8 +54,13 @@ export default function SearchForm() {
     }
 
     function search(formData){
-      if(text === "")return;
       const page = 1;
+      if(text === "")return;
+
+
+      // ParseString to title case
+      const parseText = titleCase(text)
+      
       dispatch(setLoading(true));
       setInputLoading(true)
 
@@ -64,18 +69,17 @@ export default function SearchForm() {
       if(formData.get('color') != ''){
         filters.color = formData.get('color')
       }
-
-      fetch(`http://localhost/api/search/terms/${text}/${page}?${new URLSearchParams(filters)}`)
+      fetch(`http://localhost/api/search/terms/${parseText}/${page}?${new URLSearchParams(filters)}`)
         .then((res) => res.json())
         .then((data) => {
           dispatch(swapPayload(data));
                    
           var allEntries = JSON.parse(localStorage.getItem("ugo-recent-search")) || [];
-          if(!allEntries.includes(text)){
+          if(!allEntries.includes(parseText)){
             if(allEntries.length > 10){
               allEntries.pop();
             }
-            allEntries.unshift(text); 
+            allEntries.unshift(parseText); 
             // Save allEntries back to local storage and state
             setRecentSearchRef(allEntries)
             localStorage.setItem("ugo-recent-search", JSON.stringify(allEntries));
@@ -86,7 +90,7 @@ export default function SearchForm() {
         }).finally(() => {
           setInputLoading(false);
           dispatch(setLoading(false));
-          dispatch(setTerm(text))
+          dispatch(setTerm(parseText))
         });
     }
 
