@@ -69,7 +69,18 @@ export default function SearchForm() {
       if(formData.get('color') != ''){
         filters.color = formData.get('color')
       }
-      fetch(`http://localhost/api/search/terms/${parseText}/${page}?${new URLSearchParams(filters)}`)
+
+      /**
+       * The query is slightly defferent if no query parameters 
+       */
+      let query;
+      if(filters.color){
+        query = `http://localhost/api/search/terms/${parseText}/${page}?${new URLSearchParams(filters)}`
+      }else{
+        query = `http://localhost/api/search/terms/${parseText}/${page}`
+      }
+
+      fetch(query)
         .then((res) => res.json())
         .then((data) => {
           dispatch(swapPayload(data));
