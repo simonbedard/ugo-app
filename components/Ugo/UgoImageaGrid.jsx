@@ -17,7 +17,8 @@ import Checkbox from '@mui/joy/Checkbox';
 export default function UgoImageGrid() {
 
     const payload = useSelector((state) => state.search.payload);
-    const term = useSelector((state) => state.search.term)
+    const term = useSelector((state) => state.search.term);
+    const stateLoading = useSelector((state) => state.search.loading)
     
     const [checkedState, setCheckedState] = useState([]);
 
@@ -30,19 +31,20 @@ export default function UgoImageGrid() {
         }
     }
 
+    /*
     useEffect(() => {
         console.log(checkedState);
-    }, [checkedState])
+    }, [checkedState])*/
 
 
     /**
      * Logic to filter components visibility
      * @returns React component
      */
-    const ImageComponent = ({key, item}) => {
+    const ImageComponent = ({item}) => {
 
         if(checkedState.includes(item.provider) || checkedState.length == 0){
-            return <ImageListItem key={key} className="ugo-image">
+            return <ImageListItem className="ugo-image">
                 <Link href={`/file/${item.provider.toLowerCase()}/${item.id}`}>
                     <img 
                     style={{width: "100%"}}
@@ -60,6 +62,8 @@ export default function UgoImageGrid() {
 
 
     }
+
+
     return (
         <>  
         
@@ -98,13 +102,38 @@ export default function UgoImageGrid() {
                             ))}
                             </List>
                         </div>
-                    <ImageList variant="masonry" cols={3} gap={20}>
-                        {payload.assets.map((item, index) => ( 
-                            <ImageComponent key={index} item={item} />
-                        ))}
-                    </ImageList>
-
-                    <LoadMore />
+                        {stateLoading ? 
+                        <ImageList className='fake-loading-grid' variant="masonry" cols={3} gap={20}>
+                            <div className="fake-image"></div>
+                            <div className="fake-image"></div>
+                            <div className="fake-image"></div>
+                            <div className="fake-image"></div>
+                            <div className="fake-image"></div>
+                            <div className="fake-image"></div>
+                            <div className="fake-image"></div>
+                            <div className="fake-image"></div>
+                            <div className="fake-image"></div>
+                            <div className="fake-image"></div>
+                            <div className="fake-image"></div>
+                            <div className="fake-image"></div>
+                            <div className="fake-image"></div>
+                            <div className="fake-image"></div>
+                            <div className="fake-image"></div>
+                            <div className="fake-image"></div>
+                            <div className="fake-image"></div>
+                            <div className="fake-image"></div>
+                            <div className="fake-image"></div>
+                            <div className="fake-image"></div>
+                        </ImageList>
+                        : 
+                        <ImageList variant="masonry" cols={3} gap={20}>
+                            {payload.assets.map((item, index) => ( 
+                                <ImageComponent key={index} item={item} />
+                            ))}
+                        </ImageList>
+ }
+              
+                        <LoadMore />
                 </Container>
 
             </div>

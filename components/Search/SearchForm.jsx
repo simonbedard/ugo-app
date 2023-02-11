@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-import { setTerm, swapPayload } from '../../slices/searchSlice'
+import { setTerm, swapPayload, setLoading } from '../../slices/searchSlice'
 
 import Button from '@mui/joy/Button';
 
@@ -17,8 +17,9 @@ import SearchColors from './SearchColors';
 export default function SearchForm() {
 
     const searchTerm = useSelector((state) => state.search.term)
+    
     const dispatch = useDispatch();
-    const [isLoading, setLoading] = useState(false);
+    const [isLoading, setInputLoading] = useState(false);
     const [isFocused, setFocused] = useState(false);
     const [text, setText] = useState(searchTerm);
     
@@ -45,20 +46,18 @@ export default function SearchForm() {
     function formSubmited(event) {
         event.preventDefault();
         const formData = new FormData(event.target)
-      
         search(formData);
     }
 
     function recentSearchClick(item){
-      console.log(item)
       setText(item)
     }
 
     function search(formData){
       if(text === "")return;
       const page = 1;
-
-      setLoading(true)
+      dispatch(setLoading(true));
+      setInputLoading(true)
 
       let filters = {};
 
@@ -85,7 +84,8 @@ export default function SearchForm() {
         }).catch((error) => {
             console.log(error);
         }).finally(() => {
-          setLoading(false);
+          setInputLoading(false);
+          dispatch(setLoading(false));
           dispatch(setTerm(text))
         });
     }

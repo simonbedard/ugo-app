@@ -3,6 +3,7 @@ import FakeData from "../test/images.json"
 
 const initialState = {
   term: "Interior design",
+  loading: false,
   payload: FakeData,
 
 }
@@ -14,6 +15,9 @@ export const searchSlice = createSlice({
     setTerm: (state, action) => {
       state.term = action.payload
     },
+    setLoading: (state, action) => {
+      state.loading = action.payload
+    },
     swapPayload: (state, action) => {
         state.payload = action.payload
     },
@@ -21,6 +25,6 @@ export const searchSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { setTerm, swapPayload } = searchSlice.actions
+export const { setTerm, setLoading, swapPayload } = searchSlice.actions
 
 export default searchSlice.reducer
