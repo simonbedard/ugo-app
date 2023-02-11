@@ -22,7 +22,6 @@ async function getImage(provider, id) {
 
   
 export default async function Page({ params }) {
-
     const imageData = getImage(params.provider,params.id);
     // Wait for the promises to resolve
     const [image] = await Promise.all([imageData]).catch((error) => {
@@ -43,7 +42,7 @@ export default async function Page({ params }) {
                 <div className="image-wrapper">
                     <Image 
                         className='ugo-single-img'
-                        src={imageRef.src.full} 
+                        src={imageRef.src.regular} 
                         width={ imageRef.width / 2}
                         height={imageRef.height / 2}
                         alt={imageRef.description}

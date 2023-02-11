@@ -12,7 +12,7 @@ export default function RecentSearch({ list, recentSearchClick }) {
                 <Typography level="body1" component="p">Recent Search</Typography>
             </li>
             { list.map((item, key) =>
-                <li key={key} className="term" >
+                <li key={key} className="term" onClick={() => recentSearchClick(item)}>
                     <div className="row">
                  
                         <Link className='term__head' href={`/search/${item}`}>
