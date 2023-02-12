@@ -39,8 +39,9 @@ export default function Header() {
                             alignItems: "center",
                             padding: 0,
                         }}>
-                            <span>Login</span>
-                            <Button variant="outlined" sx={{
+                            <Link href='/auth/login'>Login</Link>
+
+                            <Button component="a" href='/auth/sign-up'variant="outlined" sx={{
                                 margin: "0 40px 0px 20px"
                             }}>Sign Up</Button>
                            
