@@ -23,8 +23,6 @@ export default function SearchForm() {
     const [isFocused, setFocused] = useState(false);
     const [text, setText] = useState(searchTerm);
     
-    const formRef = useRef(null)
-
     const [recentSearch, setRecentSearchRef] = useState([]);
 
     

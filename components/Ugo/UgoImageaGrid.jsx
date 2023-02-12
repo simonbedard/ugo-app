@@ -13,6 +13,10 @@ import LoadMore from './LoadMore';
 import List from '@mui/joy/List';
 import ListItem from '@mui/joy/ListItem';
 import Checkbox from '@mui/joy/Checkbox';
+import { height } from '@mui/system';
+
+import Image from 'next/image';
+
 
 export default function UgoImageGrid() {
 
@@ -31,28 +35,32 @@ export default function UgoImageGrid() {
         }
     }
 
-    /*
-    useEffect(() => {
-        console.log(checkedState);
-    }, [checkedState])*/
-
-
     /**
      * Logic to filter components visibility
      * @returns React component
      */
-    const ImageComponent = ({item}) => {
+    const ImageComponent = ({item, index}) => {
 
         if(checkedState.includes(item.provider) || checkedState.length == 0){
-            return <ImageListItem className="ugo-image">
+            return <ImageListItem className="ugo-image" sx={{
+                aspectRatio: reduce(item.width , item.height)
+            }}>
                 <Link href={`/file/${item.provider.toLowerCase()}/${item.id}`}>
-                    <img 
-                    style={{width: "100%"}}
-                    id={item.id} 
+
+                    <Image
                     src={item.src} 
+                    width={item.width}
+                    height={item.height}
+                    priority={true}
+                    alt=""
+                    onLoadingComplete={(el) => {
+                        el.closest('.ugo-image').classList.add('is-loaded')
+                    }}
                     />
+                   
+                    
                     <div className='content'>
-                        <small>{item.provider} - {item.id}</small>
+                        <small>{index} - {item.provider} - {item.id}</small>
                     </div>
                 </Link>
             </ImageListItem>
@@ -63,6 +71,14 @@ export default function UgoImageGrid() {
 
     }
 
+    // Simplified fraction by finding the GCD and dividing by it.
+    function reduce(number,denomin){
+        var gcd = function gcd(a,b){
+            return b ? gcd(b, a%b) : a;
+        };
+        gcd = gcd(number,denomin);
+        return `${number/gcd}/${denomin/gcd}`;
+    }
 
     return (
         <>  
@@ -124,11 +140,26 @@ export default function UgoImageGrid() {
                             <div className="fake-image"></div>
                             <div className="fake-image"></div>
                             <div className="fake-image"></div>
+                            <div className="fake-image"></div>
+                            <div className="fake-image"></div>
+                            <div className="fake-image"></div>
+                            <div className="fake-image"></div>
+                            <div className="fake-image"></div>
+                            <div className="fake-image"></div>
+                            <div className="fake-image"></div>
+                            <div className="fake-image"></div>
+                            <div className="fake-image"></div>
+                            <div className="fake-image"></div>
+                            <div className="fake-image"></div>
+                            <div className="fake-image"></div>
+                            <div className="fake-image"></div>
+                            <div className="fake-image"></div>
+                            <div className="fake-image"></div>
                         </ImageList>
                         : 
                         <ImageList variant="masonry" cols={3} gap={20}>
                             {payload.assets.map((item, index) => ( 
-                                <ImageComponent key={index} item={item} />
+                                <ImageComponent key={index} index={index} item={item} />
                             ))}
                         </ImageList>
  }

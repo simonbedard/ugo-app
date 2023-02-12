@@ -15,7 +15,14 @@ const nextConfig = {
   },
 
   images: {
-    domains: ['images.unsplash.com', 'images.pexels.com', 'pixabay.com', 'st4.depositphotos.com', 'st.depositphotos.com', 'st3.depositphotos.com', 'st2.depositphotos.com', 'st5.depositphotos.com'],
+    domains: ['images.unsplash.com', 'images.pexels.com', 'pixabay.com'],
+    remotePatterns:[
+      {
+        protocol: 'https',
+        hostname: '**.depositphotos.com',
+      },
+    ]
+
   },
 }
 

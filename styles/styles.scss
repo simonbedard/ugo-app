@@ -15,6 +15,14 @@
     border-radius: 10px;
     overflow: hidden;
     position: relative;
+    animation: fake-image 1s infinite;
+    background-color: #1A2027;
+    img{
+        width: 100%;
+        height: auto;
+        opacity: 0;
+        transition: all 300ms ease-out;
+    }
     .content{
         position: absolute;
         bottom: 0;
@@ -22,6 +30,16 @@
         background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(73,129,242,0) 100%);
         padding: 20px 20px 10px 20px;
         color: var(--joy-palette-neutral-50);
+        opacity: 0;
+    }
+    &.is-loaded{
+        animation: none;
+        img{
+            opacity: 1;
+        }
+        .content{
+            opacity: 1;
+        }
     }
 }
 
