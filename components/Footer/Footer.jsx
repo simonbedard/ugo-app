@@ -6,7 +6,7 @@ import Typography from '@mui/joy/Typography';
 import Grid from '@mui/material/Unstable_Grid2'; // Grid version 2
 import { styled } from '@mui/material/styles';
 import GithubIcon from '@mui/icons-material/GitHub';
-
+import Link from 'next/link';
 const FooterContainer = styled(Grid)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#161616',
     padding: '20px 40px',
@@ -27,7 +27,9 @@ export default function Footer() {
                                 display: 'flex',
                                 alignItems: "center",
                             }}>
-                                <GithubIcon sx={{ marginRight: "20px"}}/>Version Alpha.v1.0.040223
+                                <Link href="https://github.com/simonbedard" target={'_blank'}>
+                                    <GithubIcon sx={{ marginRight: "20px"}}/>
+                                </Link>Version Alpha.v1.0.040223
                             </Typography>
                         </Grid>
                     </Grid>

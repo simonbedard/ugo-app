@@ -223,3 +223,50 @@ header{
     50%   { opacity: 0.5; }
     100%  { opacity: 1; }
   }
+
+  .ugo-auth-form{
+        max-width: 600px;
+        
+        margin: 100px auto;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 10px 20px;
+        .input{
+
+            &.span-2{
+                grid-column: span 2;
+            }
+            label{
+                display: block;
+            }
+            input{
+                margin: 10px 0;
+                padding: 15px 20px;
+                border-radius: 5px;
+                width: 100%;
+                border: none;
+                background-color: #1A2027;
+                &[type="submit"]{
+                    background-color: var(--joy-palette-primary-solidBg);
+                }
+            }
+        }
+  }
+
+
+  .ugo-healthCheck{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    padding: 10px;
+    background-color: var(--joy-palette-neutral-plainHoverBg);
+    width: 100%;
+    font-size: 14px;
+    text-align: center;
+    z-index: 9999;
+  }
+
+  .logout{
+    cursor: pointer;
+    text-decoration: underline;
+  }

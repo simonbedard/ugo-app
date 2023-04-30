@@ -5,7 +5,6 @@ import UgoImageGrid from '../../../../../components/Ugo/UgoImageaGrid';
 import UgoImageUserProfile from './components/UgoImageUserProfile';
 import UgoImageActions from './components/UgoImageActions';
 import UgoImageInformations from './components/UgoImageInformations';
-import Typography from '@mui/joy/Typography';
 
 async function getImage(provider, id) {
 
@@ -14,7 +13,7 @@ async function getImage(provider, id) {
     // Recommendation: handle errors
     if (!res.ok) {
         // This will activate the closest `error.js` Error Boundary
-        // throw new Error('Failed to fetch data');
+        throw new Error('Failed to fetch data');
     }
 
     return res.json();
@@ -22,17 +21,19 @@ async function getImage(provider, id) {
 
   
 export default async function Page({ params }) {
+
     const imageData = getImage(params.provider,params.id);
     // Wait for the promises to resolve
     const [image] = await Promise.all([imageData]).catch((error) => {
         console.log(error)
     });
+    
+
     const imageRef = image.assets[0];
+
     return (
         <>
             <div className='wrapper'>
-
-                
                 <div className="row ugo-image-informations">
                     <UgoImageUserProfile provider={params.provider} />
                     <UgoImageActions />

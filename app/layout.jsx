@@ -4,7 +4,9 @@ import { Provider } from 'react-redux';
 import { store } from "../store";
 import Header from '../components/header/Header';
 import Footer from '../components/Footer/Footer';
+import HealthCheck from '../components/Test/HealthCheck';
 import "../styles/styles.scss";
+
 /**
  * Import Material UI
  */
@@ -26,15 +28,21 @@ const roboto = Roboto({
   display: 'optional',
 });
 
+
+
 export default function RootLayout({ children }){
+
     return (
       
       <html lang="en" >
         <Provider store={store}>
+            
+
             <CssVarsProvider defaultMode="dark" theme={ugo}>
             {/* must be used under CssVarsProvider */}
             <CssBaseline />
               <body>
+                <HealthCheck />
                 {getInitColorSchemeScript()}
                 <Header />
                 {children}

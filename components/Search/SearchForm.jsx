@@ -53,6 +53,8 @@ export default function SearchForm() {
 
     function search(formData){
       const page = 1;
+
+      if(isLoading)return;
       if(text === "")return;
 
 
@@ -97,8 +99,10 @@ export default function SearchForm() {
         }).catch((error) => {
             console.log(error);
         }).finally(() => {
-          setInputLoading(false);
-          dispatch(setLoading(false));
+          setTimeout(() => {
+            setInputLoading(false);
+            dispatch(setLoading(false));
+          }, 1000)
           dispatch(setTerm(parseText))
         });
     }
