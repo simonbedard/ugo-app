@@ -4,13 +4,9 @@ import { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { setTerm, swapPayload, setLoading } from '../../slices/searchSlice'
 
-import Button from '@mui/joy/Button';
 import { titleCase } from '../../utils/utils';
-import Input from '@mui/joy/Input';
-import SearchIcon from '@mui/icons-material/Search';
-import LinearProgress from '@mui/joy/LinearProgress';
+
 import RecentSearch from './RecentSearch';
-import SearchColors from './SearchColors';
 
 
 
@@ -118,25 +114,15 @@ export default function SearchForm() {
         <>
           <div className="ugo-serach-wrapper">
              <form  onSubmit={formSubmited}>
-                <Input
-                sx={{
-                    "background": "#000000",
-                    "color": "white",
-                    "--joy-palette-neutral-softHoverColor": "white",
-                    "--Input-minHeight": "50px"
-                    }}
+                <input type="text"  
                 value={text}
-                variant="soft"
                 placeholder="Find you free image ..."
-                startDecorator={<SearchIcon />}
-                endDecorator={<Button loading={isLoading} type="submit">Search</Button>}
                 onFocus={event => (recentSearch.length > 0 ? setFocused(true) : null)}
                 onBlur={event => delayBlur()}
-                onChange={event => setText(event.target.value)}
-                />
-              <SearchColors />
+                onChange={event => setText(event.target.value)}/>
+
+                <input type="submit" value="Search" />
             </form>
-            {isLoading ? <LinearProgress thickness={1} />: ''}
 
             {/* Show only when input is focus */}
             {isFocused ? <RecentSearch recentSearchClick={recentSearchClick} list={recentSearch}/>: ''}

@@ -2,8 +2,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { setTerm, swapPayload } from '../../slices/searchSlice'
 
-import { Button } from '@mui/joy';
-
 export default function LoadMore() {
 
     const payload = useSelector((state) => state.search.payload);
@@ -38,9 +36,8 @@ export default function LoadMore() {
     return (
         <>
           <div className='loadmore'>
-            <Button loading={isLoading} onClick={LoadNextPage}>Load More</Button>
+            <button onClick={LoadNextPage}>Load More</button>
           </div>
-            
         </>
     )
 }

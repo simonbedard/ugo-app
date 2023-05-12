@@ -202,6 +202,17 @@ header{
 
 }
 
+.images-grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 40px;
+    padding: 40px;
+    img{
+        width: 100%;
+        height: auto;
+        border-radius: 5px;
+    }    
+}
 
 .fake-loading-grid{
     .fake-image{

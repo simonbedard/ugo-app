@@ -1,12 +1,9 @@
 "use client"
-
-
 /**
  * Import components
  */
-
 import HeroText from '../components/Hero/HeroText';
-import UgoImageGrid from '../components/Ugo/UgoImageaGrid';
+import UgoImageGrid from '../components/Ugo/UgoImageGrid_V2';
 import UgoTrendingSearch from '../components/Ugo/UgoTrendingSearch';
 
 export default function Page() {
