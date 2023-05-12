@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 
-import UgoImageGrid from '../../../../../components/Ugo/UgoImageaGrid';
+import UgoImageGrid from '../../../../../components/Ugo/UgoImageaGrid_V2';
 import UgoImageUserProfile from './components/UgoImageUserProfile';
 import UgoImageActions from './components/UgoImageActions';
 import UgoImageInformations from './components/UgoImageInformations';

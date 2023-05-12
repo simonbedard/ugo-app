@@ -4,7 +4,6 @@
 
 
 .hero{
-
     min-height: 50vh;
     display: flex;
     align-items: center;
@@ -32,6 +31,7 @@
         color: var(--joy-palette-neutral-50);
         opacity: 0;
     }
+    
     &.is-loaded{
         animation: none;
         img{

@@ -1,5 +1,5 @@
 
-import UgoImageGrid from "../../../../components/Ugo/UgoImageaGrid"
+import UgoImageGrid from "../../../../components/Ugo/UgoImageaGrid_V2"
 
 export default async function Page({ params }) {
     console.log(params)
