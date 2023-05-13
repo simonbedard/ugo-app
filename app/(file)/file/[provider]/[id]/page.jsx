@@ -1,7 +1,6 @@
-import Link from 'next/link';
 import Image from 'next/image';
 
-import UgoImageGrid from '../../../../../components/Ugo/UgoImageaGrid_V2';
+import UgoImageGrid from '../../../../../components/Ugo/UgoImageGrid_V2';
 import UgoImageUserProfile from './components/UgoImageUserProfile';
 import UgoImageActions from './components/UgoImageActions';
 import UgoImageInformations from './components/UgoImageInformations';
@@ -15,7 +14,6 @@ async function getImage(provider, id) {
         // This will activate the closest `error.js` Error Boundary
         throw new Error('Failed to fetch data');
     }
-
     return res.json();
 }
 

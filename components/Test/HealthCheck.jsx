@@ -1,4 +1,3 @@
-"use client"
 import { Suspense, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setApiRunning } from "../../slices/globalSlice";
@@ -22,7 +21,7 @@ function CheckApi(){
     const dispatch = useDispatch(); 
     
    useEffect(() => {
-        fetch("http://localhost/api/health").then(() => {
+        fetch("http://localhost/api/health").then((e) => {
             dispatch(setApiRunning(true))
         }).catch((error) => {
             dispatch(setApiRunning(false))

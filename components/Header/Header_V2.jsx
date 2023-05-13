@@ -21,6 +21,7 @@ export default function Header() {
     const dispatch = useDispatch();
     const isUserAuth = useSelector((state) => state.auth.isAuth);
     const userProfile = useSelector((state) => state.auth.profile);
+    const _isApiRunning = useSelector((state) => state.global.isApiRunning);
 
  
 
@@ -31,18 +32,20 @@ export default function Header() {
          * Fetch CRFT Session token from Api service
          */
         const SessionCookie = getCookie('XSRF-TOKEN');
-        if(SessionCookie){
-            // Dont need to fetch it agains
-            getUser();
-        }else{
-            fetchCookieCSRF();
-            getUser();
-        }
-    
-        async function fetchCookieCSRF(){
-            await fetch("http://localhost/sanctum/csrf-cookie", {
-                credentials: "include"
-            });
+        if(_isApiRunning){
+            if(SessionCookie){
+                // Dont need to fetch it agains
+                getUser();
+            }else{
+                fetchCookieCSRF();
+                getUser();
+            }
+        
+            async function fetchCookieCSRF(){
+                await fetch("http://localhost/sanctum/csrf-cookie", {
+                    credentials: "include"
+                });
+            }
         }
 
     }, []);
