@@ -10,8 +10,11 @@ export default function Page() {
     return (
         <>
             <UgoTrendingSearch />
-            <HeroText />
-            <UgoImageGrid />
+            <div className="container">
+                <HeroText />
+                <UgoImageGrid />
+            </div>
+
         </>
     )
 }

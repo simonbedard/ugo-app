@@ -34,8 +34,6 @@ export default function UgoImageGrid() {
 
         if(checkedState.includes(item.provider) || checkedState.length == 0){
             return <Link  className="ugo-image" href={`/file/${item.provider.toLowerCase()}/${item.id}`}>
-
-                    {/*
                     <Image
                     src={item.src} 
                     width={item.width}
@@ -45,7 +43,7 @@ export default function UgoImageGrid() {
                     onLoadingComplete={(el) => {
                         el.closest('.ugo-image').classList.add('is-loaded')
                     }}
-                    />*/}
+                    />
 
                     <div className='content'>
                         <small>{index} - {item.provider} - {item.id}</small>
@@ -116,7 +114,7 @@ export default function UgoImageGrid() {
                 <div className="fake-image"></div>
             </div>
             : 
-            <div className='images-grid'>
+            <div className='gap-8 columns-3'>
                 {payload.assets.map((item, index) => ( 
                     <ImageComponent key={index} index={index} item={item} />
                 ))}

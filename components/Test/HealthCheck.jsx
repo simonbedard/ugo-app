@@ -1,18 +1,10 @@
-import { Suspense, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setApiRunning } from "../../slices/globalSlice";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 
 export default function HealthCheck() {
-    return (
-        <>  
-         <div className="ugo-healthCheck">
-            <Suspense fallback={<Loading />}>
-                <CheckApi />
-            </Suspense>
-         </div>
-
-        </>
-    )
+    return <CheckApi />
 }
 
 
@@ -33,7 +25,15 @@ function CheckApi(){
         return <p>...</p>
     }else{
         return (<>
-            <p>{(_isApiRunning.payload ? `The Api backend service is running` : `The Api backend service is not running` )}</p>
+
+            <Alert
+            className="fixed bottom-6 right-6 z-10 max-w-lg supports-backdrop-blur:bg-background/60"
+            variant="destructive">
+                <AlertTitle>API Status!</AlertTitle>
+                <AlertDescription>
+                    {(_isApiRunning.payload ? `The Api backend service is running` : `The Api backend service is not running` )}
+                </AlertDescription>
+            </Alert>
         </>)
     }
 

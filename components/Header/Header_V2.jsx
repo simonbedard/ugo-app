@@ -134,12 +134,14 @@ export default function Header() {
     
     return (
         <>
-            <header>
-                <Link href="/">
-                    <Image src={imageLogo} alt="Ugo app logo" />
-                </Link>
-                <SearchForm />
-                <HeaderAuthLinks />           
+            <header className='sticky top-0 z-40 w-full border-b bg-background/95 shadow-sm backdrop-blur'>
+                <div className='container flex items-center'>
+                    <Link href="/">
+                        <Image src={imageLogo} alt="Ugo app logo" />
+                    </Link>
+                    <SearchForm />
+                    <HeaderAuthLinks />  
+                </div>         
             </header>
         </>
     )

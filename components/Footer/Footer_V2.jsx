@@ -4,7 +4,7 @@ import Link from 'next/link';
 export default function Footer() {
     return (
         <>
-            <footer>
+            <footer className='container flex items-center py-4 border-t'>
                 <p>Copyright © Ugo®. All rights reserved.</p>
                 <Link href="https://github.com/simonbedard" target={'_blank'}>
                     GitHub
