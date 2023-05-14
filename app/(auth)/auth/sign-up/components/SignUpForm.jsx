@@ -105,8 +105,8 @@ export default function SignUpForm({}) {
                             <Input type="text" name="password_confirmation" defaultValue="simon55*"/>
                         </div>
                     </div>
-                    <Button>
-                        Sign In with Email
+                    <Button type="submit">
+                        Create your account
                     </Button>
                 </div>
             </form>

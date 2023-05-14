@@ -26,7 +26,7 @@ function CheckApi(){
         return (<>
 
             <Alert
-            className="fixed bottom-6 right-6 z-10 max-w-lg">
+            className="fixed bottom-6 left-6 z-10 max-w-lg">
                 <AlertTitle>{(_isApiRunning.payload ? `API is running` : `API is unavailable` )} </AlertTitle>
                 <AlertDescription className="opacity-60">
                     {(_isApiRunning.payload ? `The Api backend service is running` : `The Api backend service is not running` )}

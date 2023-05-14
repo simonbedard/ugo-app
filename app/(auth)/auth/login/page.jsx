@@ -1,4 +1,5 @@
 'use client'
+
 import LoginForm from "./components/LoginForm"
 import { setAuth } from "../../../../slices/authSlice";
 import { redirect } from 'next/navigation';

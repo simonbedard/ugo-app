@@ -6,6 +6,8 @@ import { setTerm, swapPayload, setLoading } from '../../slices/searchSlice'
 import { titleCase } from '../../utils/utils';
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
+import { useToast } from "@/components/ui/use-toast"
+import { ToastAction } from "@/components/ui/toast"
 
 import RecentSearch from './RecentSearch';
 
@@ -14,12 +16,13 @@ import RecentSearch from './RecentSearch';
 export default function SearchForm() {
 
     const searchTerm = useSelector((state) => state.search.term)
-    
+    const { toast } = useToast()
+
     const dispatch = useDispatch();
     const [isLoading, setInputLoading] = useState(false);
     const [isFocused, setFocused] = useState(false);
     const [text, setText] = useState(searchTerm);
-    
+    const _isApiRunning = useSelector((state) => state.global.isApiRunning);
     const [recentSearch, setRecentSearchRef] = useState([]);
 
     
@@ -40,8 +43,21 @@ export default function SearchForm() {
      */
     function formSubmited(event) {
         event.preventDefault();
-        const formData = new FormData(event.target)
-        search(formData);
+        if(_isApiRunning.payload){
+          const formData = new FormData(event.target)
+          search(formData);
+        }else{
+          toast({
+            title: "Sorry !",
+            description: "The Search feature is currently unavailable.",
+            action: (
+              <ToastAction altText="Goto schedule to undo">Status</ToastAction>
+            ),
+          })
+        }
+
+        
+
     }
 
     function recentSearchClick(item){

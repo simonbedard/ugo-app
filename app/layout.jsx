@@ -5,6 +5,8 @@ import { store } from "../store";
 import Header from '../components/header/Header_V2';
 import Footer from '../components/Footer/Footer_V2';
 import HealthCheck from '../components/Test/HealthCheck';
+import { Toaster } from "@/components/ui/toaster"
+
 import "../styles/styles.scss";
 
 export default function RootLayout({ children }){
@@ -18,7 +20,7 @@ export default function RootLayout({ children }){
                   {children}
                   <Footer />
                 </div>
-     
+                <Toaster/>
               </body>
         </Provider>
       </html>
