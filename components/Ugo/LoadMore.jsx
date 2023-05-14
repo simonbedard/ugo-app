@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { setTerm, swapPayload } from '../../slices/searchSlice'
+import { Button } from '@/components/ui/button';
 
 export default function LoadMore() {
 
@@ -36,7 +37,7 @@ export default function LoadMore() {
     return (
         <>
           <div className='loadmore'>
-            <button onClick={LoadNextPage}>Load More</button>
+            <Button onClick={LoadNextPage}>Load More</Button>
           </div>
         </>
     )

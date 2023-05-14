@@ -11,11 +11,11 @@ export default function UgoTrendingSearch() {
 
     return (
         <>
-          <div className='ugo-trending-search'>
-            <h4 className="ugo-trending-search__head">Trending now</h4>
-            <ul>
+          <div className='ugo-trending-search flex border-b '>
+            <h4 className="ugo-trending-search__head p-4 border-r bg-secondary bold" >Trending now</h4>
+            <ul className="flex flex-1  w-auto p-4 gap-4 bg-secondary">
                 {Trendings.map((item, index) => (
-                    <li key={index} onClick={() => HandleTrendingClick(item)}>{item}</li>
+                    <li key={index} onClick={() => HandleTrendingClick(item)} className="cursor-pointer opacity-60 hover:opacity-100 hover:underline">{item}</li>
                 ))}
             </ul>
           </div>

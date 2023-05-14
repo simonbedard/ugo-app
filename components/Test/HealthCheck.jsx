@@ -7,7 +7,6 @@ export default function HealthCheck() {
     return <CheckApi />
 }
 
-
 function CheckApi(){
     const _isApiRunning = useSelector((state) => state.global.isApiRunning);
     const dispatch = useDispatch(); 
@@ -27,10 +26,9 @@ function CheckApi(){
         return (<>
 
             <Alert
-            className="fixed bottom-6 right-6 z-10 max-w-lg supports-backdrop-blur:bg-background/60"
-            variant="destructive">
-                <AlertTitle>API Status!</AlertTitle>
-                <AlertDescription>
+            className="fixed bottom-6 right-6 z-10 max-w-lg">
+                <AlertTitle>{(_isApiRunning.payload ? `API is running` : `API is unavailable` )} </AlertTitle>
+                <AlertDescription className="opacity-60">
                     {(_isApiRunning.payload ? `The Api backend service is running` : `The Api backend service is not running` )}
                 </AlertDescription>
             </Alert>

@@ -13,6 +13,7 @@ import { setAuth, setUserProfile } from '../../slices/authSlice';
 import { useEffect } from 'react';
 import { redirect } from 'next/navigation';
 
+import { Button } from "@/components/ui/button"
 
 
 
@@ -124,8 +125,17 @@ export default function Header() {
             </>
         }else{
             return <>
-                <Link href='/auth/login'>Login</Link>
-                <Link href='/auth/sign-up'>Sign up</Link>
+                <div className="flex gap-2">
+                    <Button variant="outline" asChild>
+                        <Link href='/auth/login'>Sign In</Link>
+                        </Button>
+                    <Button asChild>
+                        <Link href='/auth/sign-up'>Register</Link>
+                    </Button>
+                </div>
+   
+               
+                
 
             </>
         }
@@ -135,12 +145,15 @@ export default function Header() {
     return (
         <>
             <header className='sticky top-0 z-40 w-full border-b bg-background/95 shadow-sm backdrop-blur'>
-                <div className='container flex items-center'>
+                <div className='container flex items-center justify-between	py-4'>
                     <Link href="/">
-                        <Image src={imageLogo} alt="Ugo app logo" />
+                        <Image src={imageLogo} className="ugo-logo"alt="Ugo app logo" />
                     </Link>
                     <SearchForm />
-                    <HeaderAuthLinks />  
+                    <div className="info">
+                        <HeaderAuthLinks />  
+                    </div>
+             
                 </div>         
             </header>
         </>

@@ -147,6 +147,9 @@ header{
     left: 0;
     z-index: 99;
 }
+.ugo-logo{
+    width: 120px;
+}
 
 
 .wrapper{
@@ -189,39 +192,13 @@ header{
 
 
 .ugo-trending-search{
-    display: flex;
-    width: 100%;
-    &__head{
-        padding: 20px 40px;
-        margin: 0;
-    }
-    
-    ul{
-        padding: 20px 40px;
-        display: flex;
-        list-style-type: none;
-        margin: 0;
-        border-bottom: solid 1px #1A2027;
-        flex: 1;
-        li{
-            cursor: pointer;
-            margin-right: 30px;
-            opacity: 0.7;
-        }
-    }
+
 }
 
 .ugo-serach-wrapper{
     position: relative;
-    form{
-        display: flex;
-        align-items: center;
-        div:first-child{
-            flex: 1;
-            margin-right: 10px;
-        }
-        
-    }
+    flex: 1;
+    margin: 0 12vw;
 }
 .ugo-recent-search{
     position: absolute;

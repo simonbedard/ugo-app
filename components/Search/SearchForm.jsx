@@ -3,8 +3,9 @@
 import { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { setTerm, swapPayload, setLoading } from '../../slices/searchSlice'
-
 import { titleCase } from '../../utils/utils';
+import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button"
 
 import RecentSearch from './RecentSearch';
 
@@ -114,20 +115,22 @@ export default function SearchForm() {
         <>
           <div className="ugo-serach-wrapper">
              <form  onSubmit={formSubmited}>
-                <input type="text"  
-                value={text}
-                placeholder="Find you free image ..."
-                onFocus={event => (recentSearch.length > 0 ? setFocused(true) : null)}
-                onBlur={event => delayBlur()}
-                onChange={event => setText(event.target.value)}/>
 
-                <input type="submit" value="Search" />
+             <div className="flex w-full items-center space-x-2">
+                <Input type="text"  
+                  value={text}
+                  placeholder="Find you free image ..."
+                  onFocus={event => (recentSearch.length > 0 ? setFocused(true) : null)}
+                  onBlur={event => delayBlur()}
+                  onChange={event => setText(event.target.value)}/>
+                  <Button type="submit">Search</Button>
+              </div>
+             
             </form>
 
             {/* Show only when input is focus */}
             {isFocused ? <RecentSearch recentSearchClick={recentSearchClick} list={recentSearch}/>: ''}
            
-
           </div>
         </>
     )
