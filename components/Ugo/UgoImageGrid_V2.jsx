@@ -61,20 +61,10 @@ export default function UgoImageGrid() {
     const GridComponent = ({}) => {
         if(payload.assets.length > 0){
             return <>
-            <div className="row">
-                <div>
-                    <h3 style={{textAlign: "center"}}>Searching for: <span className="txt-primary"> {term}</span></h3>
-                </div>
-                {[
-                    'Unsplash',
-                    'Pexel',
-                    'Pixabay',
-                    'Deposite',
-                ].map((item, index) => (
-                    <p key={index}>{item}</p>
-                ))}
-
+            <div className="flex border-t mb-10">
+                <p className="p-4 bold">Searching for: {term || "..."}</p>
             </div>
+
             {stateLoading ? 
             <div className='images-grid fake-loading-grid'>
                 <div className="fake-image"></div>

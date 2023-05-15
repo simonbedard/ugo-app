@@ -4,14 +4,13 @@ import Image from 'next/image';
 import imageLogo from '../../public/assets/global/logo.svg';
 import Link from 'next/link';
 
-
 import SearchForm from '../Search/SearchForm';
-
 import { useSelector, useDispatch } from 'react-redux';
 import { getCookie } from '../../utils/utils';
 import { setAuth, setUserProfile } from '../../slices/authSlice';
 import { useEffect } from 'react';
 import { redirect } from 'next/navigation';
+import { Github, Settings} from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 
@@ -150,10 +149,19 @@ export default function Header() {
                         <Image src={imageLogo} className="ugo-logo"alt="Ugo app logo" />
                     </Link>
                     <SearchForm />
-                    <div className="info">
-                        <HeaderAuthLinks />  
-                    </div>
+                    <div className="info flex gap-6 items-center">
+                        <div className="icons flex gap-4">
+                            <a href="https://github.com/simonbedard/ugo-app" target="_blank" rel="noopener noreferrer" className='text-muted-foreground hover:text-primary'>
+                                <Github />
+                            </a>  
+                            <Settings className='text-muted-foreground hover:text-primary'/>
+                              
+                        </div>
              
+                        <HeaderAuthLinks />
+             
+                        
+                    </div>
                 </div>         
             </header>
         </>

@@ -1,87 +1,59 @@
 import Image from 'next/image';
-
-import UgoImageGrid from '../../../../../components/Ugo/UgoImageGrid_V2';
 import UgoImageUserProfile from './components/UgoImageUserProfile';
 import UgoImageActions from './components/UgoImageActions';
 import UgoImageInformations from './components/UgoImageInformations';
-
+import FakeData from "@/test/image.json"
+import UgoImageGrid from '@/components/Ugo/UgoImageGrid_V2';
 async function getImage(provider, id) {
-
     const res = await fetch(`http://localhost/api/search/file/${provider}/${id}`);
-    
     // Recommendation: handle errors
+
     if (!res.ok) {
         // This will activate the closest `error.js` Error Boundary
-        throw new Error('Failed to fetch data');
+        //throw new Error('Failed to fetch asset');
+        return FakeData;
+    }else{
+        return res.json();
     }
-    return res.json();
 }
 
-  
 export default async function Page({ params }) {
 
-    const imageData = getImage(params.provider,params.id);
+    const imageData = await getImage(params.provider,params.id);
     // Wait for the promises to resolve
-    const [image] = await Promise.all([imageData]).catch((error) => {
-        console.log(error)
-    });
+    const [image] = await Promise.all([imageData]).catch((error) => {});
+    const imageRef = image.assets[0];
     
 
-    const imageRef = image.assets[0];
 
     return (
         <>
-            <div className='wrapper'>
-                <div className="row ugo-image-informations">
-                    <UgoImageUserProfile provider={params.provider} />
-                    <UgoImageActions />
-                </div>
-                
+            <div className='container'>
+ 
+                <div className="flex gap-10 my-20">
+                    <div className='basis-6/12'>
+                        <Image 
+                            src={imageRef.src.regular} 
+                            width={ imageRef.width / 2}
+                            height={imageRef.height / 2}
+                            alt={imageRef.description}
+                        />
+                    </div>
 
-                <div className="image-wrapper">
-                    <Image 
-                        className='ugo-single-img'
-                        src={imageRef.src.regular} 
-                        width={ imageRef.width / 2}
-                        height={imageRef.height / 2}
-                        alt={imageRef.description}
-                    />
-                </div>
 
-                <UgoImageInformations 
-                provider={params.provider}
-                id={params.id} 
-                imageRef={imageRef}
-                />
-  
-                <div style={{display: 'none'}} className="image-information">
-                    <h3>Statatistics</h3>
-                    <ul>
-                        <li>Views: {imageRef.views}</li>
-                        <li>Downloads: {imageRef.downloads}</li>
-                        <li>Likes: {imageRef.likes}</li>
-                    </ul>
-                    <h3>Date</h3>
-                    <ul>
-                        <li>Create at: {imageRef.date.created_at}</li>
-                        <li>Update at: {imageRef.date.updated_at}</li>
-                    </ul>
-                    {/*
-                    <h3>Exif data</h3>
-                    <ul>
-                        <li>Taille: {imageRef.exif.FileSize}</li>
-                        <li>MimeType: {imageRef.exif.MimeType}</li>
-                        <li>Model: {imageRef.exif.Model}</li>
-                        <li>Software: {imageRef.exif.Software}</li>
-                        <li>Size: {imageRef.width} x {imageRef.height}</li>
-    </ul>*/}
-                
+                    <div className="informations border-t py-10 basis-6/12">
+                        <h1 className='text-xl font-extrabold'>{imageRef.id}</h1>
+                        <p className='text-sm text-muted-foreground'>{imageRef.description}</p>
+                        <UgoImageActions />
+                        <UgoImageUserProfile data={imageRef} />
+                        <UgoImageInformations 
+                            provider={params.provider}
+                            id={params.id} 
+                            imageRef={imageRef}
+                        />
+                    </div>
                 </div>
-
-                <div  style={{marginTop: '60px'}}>
-                    <UgoImageGrid />
-                </div>
-                
+                <UgoImageGrid />
             </div>
     
         </>

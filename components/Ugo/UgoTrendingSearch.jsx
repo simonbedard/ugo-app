@@ -43,15 +43,16 @@ export default function UgoTrendingSearch() {
     return (
         <>
           
-          <div className='ugo-trending-search flex border-b '>
-            <h4 className="ugo-trending-search__head p-4 border-r bg-secondary bold" >Trending now</h4>
-            
-            <ul className="flex flex-1  w-auto p-4 gap-4 bg-secondary items-center">
-
-              <Suspense fallback={<SkeletonFeed />}>
-                <TrendingFeed />
-              </Suspense>
-            </ul>
+          <div className='ugo-trending-search bg-secondary border-b'>
+            <div className="container flex">
+              <h4 className="ugo-trending-search__head p-4 border-r  bold" >Trending now</h4>
+              <ul className="flex flex-1  w-auto p-4 gap-4 items-center">
+                <Suspense fallback={<SkeletonFeed />}>
+                  <TrendingFeed />
+                </Suspense>
+              </ul>
+            </div>
+           
           </div>
             
         </>

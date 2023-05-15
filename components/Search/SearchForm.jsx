@@ -43,7 +43,7 @@ export default function SearchForm() {
      */
     function formSubmited(event) {
         event.preventDefault();
-        if(_isApiRunning.payload){
+        if(_isApiRunning){
           const formData = new FormData(event.target)
           search(formData);
         }else{
