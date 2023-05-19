@@ -23,8 +23,6 @@ export default async function Page({ params }) {
     // Wait for the promises to resolve
     const [image] = await Promise.all([imageData]).catch((error) => {});
     const imageRef = image.assets[0];
-    
-
 
     return (
         <>
@@ -37,6 +35,7 @@ export default async function Page({ params }) {
                             width={ imageRef.width / 2}
                             height={imageRef.height / 2}
                             alt={imageRef.description}
+                            className='ugo-single-img'
                         />
                     </div>
 

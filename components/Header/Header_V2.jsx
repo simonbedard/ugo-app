@@ -9,7 +9,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getCookie } from '../../utils/utils';
 import { setAuth, setUserProfile } from '../../slices/authSlice';
 import { useEffect } from 'react';
-import { redirect } from 'next/navigation';
 import { Github, Settings} from "lucide-react"
 
 import { Button } from "@/components/ui/button"
@@ -40,6 +39,7 @@ export default function Header() {
                 fetchCookieCSRF();
                 getUser();
             }
+            
         
             async function fetchCookieCSRF(){
                 await fetch("http://localhost/sanctum/csrf-cookie", {
@@ -48,7 +48,7 @@ export default function Header() {
             }
         }
 
-    }, []);
+    }, [_isApiRunning]);
     
     useEffect(() => {
         const isObjectEmpty = (objectName) => {
@@ -61,7 +61,9 @@ export default function Header() {
         }   
     }, [isUserAuth]);
 
+
     async function getUser(){
+      
         await fetch(API_AUTH_PROFILE_URL, {
             method: "GET",
             credentials: "include",
@@ -84,7 +86,6 @@ export default function Header() {
                res.json().then((profile) => {
                     dispatch(setUserProfile(profile))
                 });
-         
             }
 
         }).catch((error) => {

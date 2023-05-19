@@ -119,11 +119,8 @@
 }
 
 .ugo-single-img{
-    width: 100%;
-    height: auto;
-    max-width: 800px;
-    margin: 40px auto;
-    vertical-align: bottom;
+   max-height: 60vh;
+   object-fit: contain;
 }
 
 

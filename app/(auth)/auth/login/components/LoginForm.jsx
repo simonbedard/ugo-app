@@ -6,10 +6,12 @@ import Link from "next/link";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
+import { useState } from "react";
+import { Redirect } from "next";
 export default function LoginForm({}) {
 
     const dispatch = useDispatch();
-
+    const [error , setError] = useState({})
 
     /**
      * Handle the form signe submition
@@ -17,7 +19,9 @@ export default function LoginForm({}) {
      */
     function handleLogin(event){
         event.preventDefault();
+
         const formData = new FormData(event.target);
+
         const dataObject = { 
             email: formData.get('email'),
             password: formData.get('password'),
@@ -36,7 +40,14 @@ export default function LoginForm({}) {
             body: JSON.stringify(dataObject),
         }).then((res) => res.json())
         .then((data) => {
-            dispatch(setAuth(true));
+            if(data.errors){
+              setError(data)
+            }else{
+              dispatch(setAuth(true));
+              // Redirect the user to the dashboard page on successful login
+              redirect('/dashboard');
+
+            }
         }).catch((error) => {
             dispatch(setAuth(false));
         });
@@ -56,15 +67,17 @@ export default function LoginForm({}) {
                 Enter your email and password below to login to your account
               </p>
             </div>
-            <form onSubmit={handleLogin}>
+            <form onSubmit={handleLogin} className={error ? "has-errors": '' }>
                 <div className="grid gap-2">
                     <div className="grid gap-1">
+                        <p className="text-destructive">{error.message}</p>
                         <div className="my-2">
                             <Label htmlFor="email" className="mb-2">
                                 Email
                             </Label>
                             <Input
                             id="email"
+                            name="email"
                             placeholder="name@example.com"
                             defaultValue="ugo@ugo.com"
                             type="email"
@@ -72,10 +85,14 @@ export default function LoginForm({}) {
                             autoComplete="email"
                             autoCorrect="off"
                             />
+                            <p className="text-sm text-destructive mt-1">{error.errors?.email[0]}</p>
+
                         </div>
                         <div className="my-2">
                         <Label htmlFor="password" className="mb-2">Your password</Label>
                         <Input type="text" name="password" defaultValue="simon55*"/>
+                        <p className="text-sm text-destructive mt-1">{error.errors?.password}</p>
+
                         </div>
                     </div>
                     <Button>

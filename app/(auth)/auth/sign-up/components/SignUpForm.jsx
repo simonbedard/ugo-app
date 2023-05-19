@@ -6,9 +6,11 @@ import Link from "next/link";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
+import { useState } from "react";
 export default function SignUpForm({}) {
 
     const dispatch = useDispatch();
+    const [error , setError] = useState({})
 
     /**
      * Fetch CRFT Session token from Api service
@@ -46,8 +48,11 @@ export default function SignUpForm({}) {
 
         }).then((res) => res.json())
         .then((data) => {
-            if(data.messa)
-            dispatch(setAuth(true));
+            if(data.errors){
+                setError(data)
+              }else{
+                dispatch(setAuth(true));
+              }
         }).catch((error) => {
             dispatch(setAuth(false));
         });
@@ -68,15 +73,19 @@ export default function SignUpForm({}) {
               </p>
             </div>
             <form onSubmit={handleSignUp}>
+
                 <div className="grid gap-2">
                     <div className="grid gap-1">
+                        <p className="text-destructive">{error.message}</p>
                         <div className="my-2">
                             <Label htmlFor="name" className="mb-2">
                                 Name
                             </Label>
                             <Input
                             id="name"
+                            name="name"
                             placeholder="Your name"
+                            defaultValue="Simon"
                             type="text"
                             autoCapitalize="none"
                             autoCorrect="off"
@@ -88,6 +97,7 @@ export default function SignUpForm({}) {
                             </Label>
                             <Input
                             id="email"
+                            name="email"
                             placeholder="name@example.com"
                             defaultValue="ugo@ugo.com"
                             type="email"
