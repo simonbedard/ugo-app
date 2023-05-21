@@ -8,6 +8,7 @@ const nextConfig = {
   /* The app directory enables support for layouts, Server Components, streaming, and colocated data fetching. */
   experimental: {
     appDir: true,
+    serverActions: true,
   },
   
   sassOptions: {

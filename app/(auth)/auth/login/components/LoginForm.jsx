@@ -7,11 +7,17 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
-import { Redirect } from "next";
+import { redirect } from "next/navigation";
+
 export default function LoginForm({}) {
 
     const dispatch = useDispatch();
     const [error , setError] = useState({})
+    const isUserAuth = useSelector((state) => state.auth.isAuth);
+
+    if(isUserAuth){
+        redirect('/dashboard');
+    }
 
     /**
      * Handle the form signe submition

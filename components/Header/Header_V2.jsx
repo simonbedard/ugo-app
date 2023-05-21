@@ -10,7 +10,6 @@ import { getCookie } from '../../utils/utils';
 import { setAuth, setUserProfile } from '../../slices/authSlice';
 import { useEffect } from 'react';
 import { Github, Settings} from "lucide-react"
-
 import { Button } from "@/components/ui/button"
 
 
@@ -22,14 +21,12 @@ export default function Header() {
     const userProfile = useSelector((state) => state.auth.profile);
     const _isApiRunning = useSelector((state) => state.global.isApiRunning);
 
- 
+    
+    /*
 
     const API_AUTH_PROFILE_URL = `http://localhost/api/user`;
     
     useEffect(() => {
-        /**
-         * Fetch CRFT Session token from Api service
-         */
         const SessionCookie = getCookie('XSRF-TOKEN');
         if(_isApiRunning){
             if(SessionCookie){
@@ -59,7 +56,7 @@ export default function Header() {
                 getUser();
             }
         }   
-    }, [isUserAuth]);
+    }, [isUserAuth]);*/
 
 
     async function getUser(){
