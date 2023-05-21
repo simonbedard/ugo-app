@@ -191,13 +191,8 @@ header{
 }
 .ugo-recent-search{
     position: absolute;
-    top: 60px;
+    top: 45px;
     width: 100%;
-    background-color: darken(#1A2027, 3);
-    margin: 0;
-    padding: 20px 10px;
-    list-style-type: none;
-    border-radius: 5px;
     li{
         .row{
             align-items: center;
@@ -206,23 +201,7 @@ header{
             padding: 10px;
         }
         &.term{
-            padding: 5px 10px;
             cursor: pointer;
-            &:hover{
-                background-color: darken(#1A2027, 5);
-            }
-            .term__head{
-                display: flex;
-                align-items: center;
-                p{
-                    margin-left: 10px;
-                }
-            }
-            .term__close{
-                opacity: 0.7;
-                display: flex;
-                align-items: center;
-            }
         }
 
     }

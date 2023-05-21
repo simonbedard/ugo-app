@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 // This function can be marked `async` if using `await` inside
 export async function middleware(request) {
+
+
     let response = NextResponse.next();
     
     /**
@@ -23,7 +25,6 @@ export async function middleware(request) {
 
       response.headers.set('set-cookie', setCookie);
     }
-
     return response;
 }
  

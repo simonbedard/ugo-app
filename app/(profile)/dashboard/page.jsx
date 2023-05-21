@@ -4,6 +4,7 @@ import { redirect } from 'next/navigation';
 import { Button } from 'components/ui/button';
 import { ImagePlus } from "lucide-react"
 import CreateCollectionsDialog from './components/CreateCollectionsDialog';
+import { useEffect } from 'react';
 /**
  * Import components
  */
@@ -12,11 +13,12 @@ export default function Page() {
     const isUserAuth = useSelector((state) => state.auth.isAuth);
     const userProfile = useSelector((state) => state.auth.profile);
  
-    if(!isUserAuth){
-        redirect('/auth/login');
-    }
+    useEffect(() => {
+        if(!isUserAuth){
+            redirect('/auth/login');
+        }
+    }, [])
 
-    
 
     return (
         <>    

@@ -1,4 +1,4 @@
-
+"use client"
 import {
     Dialog,
     DialogContent,
@@ -15,7 +15,7 @@ import { Label } from "@/components/ui/label"
 export default function CreateCollectionsDialog({}) {
     return (
         <Dialog>
-            <DialogTrigger>
+            <DialogTrigger asChild>
                 <Button variant='secondary'><ImagePlus className="mr-2 h-4 w-4" />Create collection</Button>
             </DialogTrigger>
             <DialogContent>
@@ -39,7 +39,7 @@ export default function CreateCollectionsDialog({}) {
                 </div>
                 </div>
                 <DialogFooter>
-                <Button type="submit">Create Collection</Button>
+                    <Button type="submit">Create Collection</Button>
                 </DialogFooter>
                 </DialogHeader>
             </DialogContent>
