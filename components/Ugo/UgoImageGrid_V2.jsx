@@ -52,12 +52,7 @@ export default function UgoImageGrid() {
         }else{
             return
         }
-
-
     }
-
-
-
     const GridComponent = ({}) => {
         if(payload.assets.length > 0){
             return <>
@@ -104,7 +99,7 @@ export default function UgoImageGrid() {
                 <div className="fake-image"></div>
             </div>
             : 
-            <div className='gap-8 columns-3'>
+            <div className='grid grid-cols-4 gap-4'>
                 {payload.assets.map((item, index) => ( 
                     <ImageComponent key={index} index={index} item={item} />
                 ))}

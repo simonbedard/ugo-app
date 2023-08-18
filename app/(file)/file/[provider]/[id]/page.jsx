@@ -7,10 +7,9 @@ import UgoImageGrid from '@/components/Ugo/UgoImageGrid_V2';
 async function getImage(provider, id) {
     const res = await fetch(`http://localhost/api/search/file/${provider}/${id}`);
     // Recommendation: handle errors
-
     if (!res.ok) {
         // This will activate the closest `error.js` Error Boundary
-        //throw new Error('Failed to fetch asset');
+        throw new Error('Failed to fetch asset');
         return FakeData;
     }else{
         return res.json();
@@ -22,12 +21,12 @@ export default async function Page({ params }) {
     const imageData = await getImage(params.provider,params.id);
     // Wait for the promises to resolve
     const [image] = await Promise.all([imageData]).catch((error) => {});
-    const imageRef = image.assets[0];
+    const imageRef = image.assets;
 
     return (
         <>
             <div className='container'>
- 
+                
                 <div className="flex gap-10 my-20">
                     <div className='basis-6/12'>
                         <Image 
