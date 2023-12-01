@@ -11,22 +11,19 @@ import { setAuth, setUserProfile } from '../../slices/authSlice';
 import { useEffect } from 'react';
 import { Github, Settings} from "lucide-react"
 import { Button } from "@/components/ui/button"
-
-
+import SearchForm2 from 'components/Search/SearchForm2';
 
 export default function Header() {
 
     const dispatch = useDispatch();
     const isUserAuth = useSelector((state) => state.auth.isAuth);
     const userProfile = useSelector((state) => state.auth.profile);
-    const _isApiRunning = useSelector((state) => state.global.isApiRunning);
+    const _isApiRunning = useSelector((state) => state.global.isApiRunning).payload;
     
     const API_AUTH_PROFILE_URL = `http://localhost/api/user`;
     
     useEffect(() => {
         getUser();
-
-
     }, [_isApiRunning]);
     
     useEffect(() => {
@@ -42,35 +39,38 @@ export default function Header() {
 
 
     async function getUser(){
-      
-        await fetch(API_AUTH_PROFILE_URL, {
-            method: "GET",
-            credentials: "include",
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-                "X-XSRF-TOKEN": getCookie('XSRF-TOKEN')
-            }
-        })
-        .then((res) => {
-            if(res.status == 401){
-                console.log("User is not Unauthenticated on app first load");
+        // Do not try to fetch the user information is the api is not running!
+        if(_isApiRunning){
+            await fetch(API_AUTH_PROFILE_URL, {
+                method: "GET",
+                credentials: "include",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    "X-XSRF-TOKEN": getCookie('XSRF-TOKEN')
+                }
+            })
+            .then((res) => {
+                if(res.status == 401){
+                    console.log("User is not Unauthenticated on app first load");
+                    dispatch(setAuth(false));
+                    dispatch(setUserProfile({}));
+                }else{
+                    console.log("User is authenticated on app first load");
+                    
+                    dispatch(setAuth(true));
+    
+                   res.json().then((profile) => {
+                        dispatch(setUserProfile(profile))
+                    });
+                }
+    
+            }).catch((error) => {
                 dispatch(setAuth(false));
-                dispatch(setUserProfile({}));
-            }else{
-                console.log("User is authenticated on app first load");
-                
-                dispatch(setAuth(true));
+                dispatch(setUserProfile({}))
+            });
+        }
 
-               res.json().then((profile) => {
-                    dispatch(setUserProfile(profile))
-                });
-            }
-
-        }).catch((error) => {
-            dispatch(setAuth(false));
-            dispatch(setUserProfile({}))
-        });
     }
 
     async function logout() {
@@ -126,11 +126,11 @@ export default function Header() {
     return (
         <>
             <header className='sticky top-0 z-40 w-full border-b bg-background/95 shadow-sm backdrop-blur'>
-                <div className='container flex items-center justify-between	py-4'>
+                <div className='container flex items-center justify-between	py-4 gap-4'>
                     <Link href="/">
                         <Image src={imageLogo} className="ugo-logo"alt="Ugo app logo" />
                     </Link>
-                    <SearchForm />
+                    <SearchForm2 />
                     <div className="info flex gap-6 items-center">
                         <div className="icons flex gap-4">
                             <a href="https://github.com/simonbedard/ugo-app" target="_blank" rel="noopener noreferrer" className='text-muted-foreground hover:text-primary'>

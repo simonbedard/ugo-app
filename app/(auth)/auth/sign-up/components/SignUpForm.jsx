@@ -7,17 +7,14 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
-export default function SignUpForm({}) {
+import { useToast } from "@/components/ui/use-toast"
+import { ToastAction } from "@/components/ui/toast"
 
+export default function SignUpForm({}) {
+    const { toast } = useToast()
     const dispatch = useDispatch();
     const [error , setError] = useState({})
-
-    /**
-     * Fetch CRFT Session token from Api service
-     */
-    fetch("http://localhost/sanctum/csrf-cookie", {
-        credentials: "include"
-    });
+    const isApiRunning = useSelector((state) => state.global.isApiRunning).payload;
 
     /**
      * Handle the form signe submition
@@ -26,36 +23,46 @@ export default function SignUpForm({}) {
     function handleSignUp(event){
         event.preventDefault();
         
-        const formData = new FormData(event.target);
-        const dataObject = { 
-            name: formData.get('name'),
-            email: formData.get('email'),
-            password: formData.get('password'),
-            password_confirmation: formData.get('password_confirmation'),
-        };
-
-        const API_AUTH_SIGNU_URL = `http://localhost/auth/register`;
-        
-        fetch(API_AUTH_SIGNU_URL, {
-            method: "POST",
-            credentials: "include",
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-                "X-XSRF-TOKEN": getCookie('XSRF-TOKEN')
-            },
-            body: JSON.stringify(dataObject),
-
-        }).then((res) => res.json())
-        .then((data) => {
-            if(data.errors){
-                setError(data)
-              }else{
-                dispatch(setAuth(true));
-              }
-        }).catch((error) => {
-            dispatch(setAuth(false));
-        });
+        if(isApiRunning){
+            const formData = new FormData(event.target);
+            const dataObject = { 
+                name: formData.get('name'),
+                email: formData.get('email'),
+                password: formData.get('password'),
+                password_confirmation: formData.get('password_confirmation'),
+            };
+    
+            const API_AUTH_SIGNU_URL = `http://localhost/auth/register`;
+            
+            fetch(API_AUTH_SIGNU_URL, {
+                method: "POST",
+                credentials: "include",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    "X-XSRF-TOKEN": getCookie('XSRF-TOKEN')
+                },
+                body: JSON.stringify(dataObject),
+    
+            }).then((res) => res.json())
+            .then((data) => {
+                if(data.errors){
+                    setError(data)
+                  }else{
+                    dispatch(setAuth(true));
+                  }
+            }).catch((error) => {
+                dispatch(setAuth(false));
+            });
+        }else{
+            toast({
+                title: "Sorry !",
+                description: "Sign up request is disable. The API status is down.",
+                action: (
+                    <ToastAction altText="Goto schedule to undo">Status</ToastAction>
+                ),
+            });
+        }
    
       
 

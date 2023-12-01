@@ -9,11 +9,17 @@ import { Label } from "@/components/ui/label";
 import { useState } from "react";
 import { redirect } from "next/navigation";
 
+import { useToast } from "@/components/ui/use-toast"
+import { ToastAction } from "@/components/ui/toast"
+
 export default function LoginForm({}) {
 
     const dispatch = useDispatch();
+    const { toast } = useToast()
+
     const [error , setError] = useState({})
     const isUserAuth = useSelector((state) => state.auth.isAuth);
+    const isApiRunning = useSelector((state) => state.global.isApiRunning).payload;
 
     if(isUserAuth){
         redirect('/dashboard');
@@ -25,41 +31,47 @@ export default function LoginForm({}) {
      */
     function handleLogin(event){
         event.preventDefault();
+        if(isApiRunning){
+          const formData = new FormData(event.target);
 
-        const formData = new FormData(event.target);
-
-        const dataObject = { 
-            email: formData.get('email'),
-            password: formData.get('password'),
-        };
-
-        const API_AUTH_SIGNU_URL = `http://localhost/auth/login`;
-        
-        fetch(API_AUTH_SIGNU_URL, {
-            method: "POST",
-            credentials: "include",
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-                "X-XSRF-TOKEN": getCookie('XSRF-TOKEN')
-            },
-            body: JSON.stringify(dataObject),
-        }).then((res) => res.json())
-        .then((data) => {
-            if(data.errors){
-              setError(data)
-            }else{
-              dispatch(setAuth(true));
-              // Redirect the user to the dashboard page on successful login
-              redirect('/dashboard');
-
-            }
-        }).catch((error) => {
-            dispatch(setAuth(false));
-        });
-   
-      
-
+          const dataObject = { 
+              email: formData.get('email'),
+              password: formData.get('password'),
+          };
+  
+          const API_AUTH_SIGNU_URL = `http://localhost/auth/login`;
+          
+          fetch(API_AUTH_SIGNU_URL, {
+              method: "POST",
+              credentials: "include",
+              headers: {
+                  'Content-Type': 'application/json',
+                  'Accept': 'application/json',
+                  "X-XSRF-TOKEN": getCookie('XSRF-TOKEN')
+              },
+              body: JSON.stringify(dataObject),
+          }).then((res) => res.json())
+          .then((data) => {
+              if(data.errors){
+                setError(data)
+              }else{
+                dispatch(setAuth(true));
+                // Redirect the user to the dashboard page on successful login
+                redirect('/dashboard');
+  
+              }
+          }).catch((error) => {
+              dispatch(setAuth(false));
+          });
+        }else{
+          toast({
+            title: "Sorry !",
+            description: "Login request is disable. The API status is down.",
+            action: (
+              <ToastAction altText="Goto schedule to undo">Status</ToastAction>
+            ),
+          });
+        }
     }
     return (
         <>

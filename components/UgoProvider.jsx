@@ -4,13 +4,14 @@ import { store } from "../store";
 import Header from '@/components/header/Header_V2';
 import Footer from '@/components/Footer/Footer_V2';
 import HealthCheck from '@/components/Test/HealthCheck';
+
 import { Toaster } from "@/components/ui/toaster"
 
-export default function UgoProvider({ children }) {
+export default function UgoProvider({ children, apiStatus }) {
     return (
         <Provider store={store}>
               <body>
-                <HealthCheck />
+                <HealthCheck status={apiStatus}/>
                 <div className='relative flex min-h-screen flex-col'>
                   <Header />
                   {children}

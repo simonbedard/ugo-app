@@ -6,7 +6,7 @@ import UgoImageGrid from '../components/Ugo/UgoImageGrid_V2';
 import UgoTrendingSearch from '../components/Ugo/UgoTrendingSearch';
 
 export const metadata = {
-    title: 'Royalty free image for your project',
+    title: 'Royalty free source, search engine that helps you find free images to use anywhere.',
     description: '...',
 };
 

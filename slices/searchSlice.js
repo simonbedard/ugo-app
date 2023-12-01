@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import FakeData from "../test/images.json"
 
 const initialState = {
-  term: "",
+  term: "Initial Search terms",
   loading: false,
   payload: FakeData,
 

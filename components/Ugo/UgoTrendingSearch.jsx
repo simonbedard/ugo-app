@@ -13,7 +13,7 @@ export default function UgoTrendingSearch() {
      * @returns 
      */
     const  TrendingFeed = async () => {
-      await new Promise(r => setTimeout(r, 2000));
+      
       const Trendings = ["Black and white", "Snowstorm", "Tiktok", "Ukraine", "Netflix", "SpaceX"]
       return (
         <>
